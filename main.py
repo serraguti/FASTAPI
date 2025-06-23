@@ -7,8 +7,21 @@ from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 #Agregamos la librería para utilizar BaseModel
 from pydantic import BaseModel
+import services.ServiceJugadores as servicio
+#Recuperamos la librería de objetos JSON
+import json
 
 app = FastAPI()
+
+@app.get("/players")
+def readPlayers():
+    players = servicio.getPlayers()
+    return {"players": players}
+
+@app.get("/find/{id}")
+def findPlayer(id: int):
+    player = servicio.findPlayer(id)
+    return player
 
 class Dato(BaseModel):
     nombre: str
@@ -71,6 +84,7 @@ def dameNombres():
         codificado = jsonable_encoder(elemento)
         salida.append(codificado) 
     return {"nombres": salida}
+
 
 
     
