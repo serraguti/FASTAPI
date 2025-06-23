@@ -10,18 +10,22 @@ from pydantic import BaseModel
 import services.ServiceJugadores as servicio
 #Recuperamos la librería de objetos JSON
 import json
+#DEBEMOS HACER REFERENCIA A NUESTRO CONTROLLER Y SU router
+from controllers.DatosController import router as router_controller
+from controllers.JugadoresController import router as router_jugadores
 
 app = FastAPI()
 
-@app.get("/players")
-def readPlayers():
-    players = servicio.getPlayers()
-    return {"players": players}
+app.include_router(router_jugadores, prefix="/api", tags=["jugadores"])
+#POSTERIORMENTE, AGREGAMOS NUESTRO CONTROLLER A LA APLICACION
+#Sintaxis si deseamos integrar TODO dentro del Controller principal
+#app.include_router(router_controller)
+#Si deseamos separar los controller por NAME y EndPoint debemos indicar
+#en la agregación del Router, el prefix del Endpoint y el nombre del Controller
+app.include_router(router_controller, prefix="/api", tags=["Datos"])
 
-@app.get("/find/{id}")
-def findPlayer(id: int):
-    player = servicio.findPlayer(id)
-    return player
+
+
 
 class Dato(BaseModel):
     nombre: str
