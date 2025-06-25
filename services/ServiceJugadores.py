@@ -30,12 +30,32 @@ def findPlayer(idPlayer: int):
             return player
     return None
 
-def searchPlayersAge(edad: int):
+def searchPlayersAge(edad: int, inicio: int, fin: int):
     players = getPlayers()
     filtro = list(filter(lambda x: x.edad > edad, players))
-    return filtro
+    datos = []
+    for i in range(inicio, fin + 1):
+        if (i >= len(filtro)):
+            break
+        datos.append(filtro[i])
+    return datos
 
-def searchPlayersPosition(posicion: str):
+def searchPlayersPosition(posicion: str, inicio: int, fin: int):
     players = getPlayers()
     filtro = list(filter(lambda x: x.posicion.lower() == posicion.lower(), players))
-    return filtro
+    datos = []
+    for i in range(inicio, fin + 1):
+        if (i >= len(filtro)):
+            break
+        datos.append(filtro[i])
+    return datos
+
+
+def filterPlayers(inicio: int, fin: int):
+    players = getPlayers()
+    datos = []
+    for i in range(inicio, fin + 1):
+        if (i >= len(players)):
+            break
+        datos.append(players[i])
+    return datos

@@ -2,8 +2,7 @@
 #que será la de ejecución de nuestro Api
 #Dicha variable será de tipo FastApi()
 from typing import Union
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.encoders import jsonable_encoder
 #Agregamos la librería para utilizar BaseModel
 from pydantic import BaseModel
@@ -14,7 +13,13 @@ import json
 from controllers.DatosController import router as router_controller
 from controllers.JugadoresController import router as router_jugadores
 
-app = FastAPI()
+def dependencia1(token: str):
+    print("Dependencia Global 1: " + token)
+
+def dependencia2():
+    print("Dependencia Global 2")
+
+app = FastAPI(dependencies=[Depends(dependencia1), Depends(dependencia2)])
 
 app.include_router(router_jugadores, prefix="/api", tags=["jugadores"])
 #POSTERIORMENTE, AGREGAMOS NUESTRO CONTROLLER A LA APLICACION
