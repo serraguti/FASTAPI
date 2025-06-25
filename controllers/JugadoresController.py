@@ -15,3 +15,13 @@ def findPlayer(id: int):
     if (player is None):
         raise HTTPException(status_code=404,detail=f"Player not found {id}")
     return apiResponse(data=player)
+
+@router.get("/filteredad/{edad}")
+def jugadoresEdad(edad: int):
+    players = servicio.searchPlayersAge(edad)
+    return apiResponse(data=players)
+
+@router.get("/filterposicion/{posicion}")
+def jugadoresEdad(posicion: str):
+    players = servicio.searchPlayersPosition(posicion)
+    return apiResponse(data=players)
