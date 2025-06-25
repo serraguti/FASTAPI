@@ -28,3 +28,14 @@ def findPlayer(idPlayer: int):
             player.posicion = jugador["posicion"]
             player.edad = int(jugador["edad"])
             return player
+    return None
+
+def searchPlayersAge(edad: int):
+    players = getPlayers()
+    filtro = list(filter(lambda x: x.edad > edad, players))
+    return filtro
+
+def searchPlayersPosition(posicion: str):
+    players = getPlayers()
+    filtro = list(filter(lambda x: x.posicion.lower() == posicion.lower(), players))
+    return filtro
